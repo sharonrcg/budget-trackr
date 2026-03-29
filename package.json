@@ -50,7 +50,7 @@
     "style-loader": "^1.2.1",
     "uuid": "^8.0.0",
     "validator": "^13.0.0",
-    "webpack": "^4.43.0",
+    "webpack": "^5.105.4",
     "webpack-cli": "^3.3.11"
   },
   "devDependencies": {
