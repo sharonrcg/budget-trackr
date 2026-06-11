@@ -10,8 +10,8 @@ if (process.env.NODE_ENV === "test") {
     require("dotenv").config({ path: ".env.development" });
 }
 
-module.exports = (env) => {
-    const isProd = env === "production";
+module.exports = (env, argv) => {
+    const isProd = argv && argv.mode === "production";
     return {
         entry: ["@babel/polyfill", "./src/app.js"],
         output: {
@@ -30,7 +30,10 @@ module.exports = (env) => {
                     {
                         loader: "css-loader",
                         options: {
-                            sourceMap: true
+                            sourceMap: true,
+                            url: {
+                                filter: (url) => !url.startsWith("/"),
+                            },
                         }
                     },
                     {
@@ -56,9 +59,13 @@ module.exports = (env) => {
         ],
         devtool: isProd ? "source-map" : "inline-source-map",
         devServer: {
-            contentBase: path.join(__dirname, "public"),
-            historyApiFallback: true,    // always send user to index.html, let react-router decide which component to render
-            publicPath: "/dist/"
+            static: {
+                directory: path.join(__dirname, "public"),
+            },
+            historyApiFallback: true,
+            devMiddleware: {
+                publicPath: "/dist/",
+            },
         },
         performance: {
             hints: false,

@@ -37,7 +37,6 @@
 .button__secondary {
     background: $gray;
     margin-top: 1rem;
-    margin-left: .8rem;
 
     &:hover {
         background: darken($color: $gray, $amount: 10%);

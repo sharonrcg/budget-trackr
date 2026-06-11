@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:dev": "NODE_OPTIONS=--openssl-legacy-provider webpack",
-    "build:prod": "NODE_OPTIONS=--openssl-legacy-provider webpack -p --env production",
-    "dev-server": "NODE_OPTIONS=--openssl-legacy-provider webpack-dev-server",
+    "build:dev": "webpack --mode development",
+    "build:prod": "webpack --mode production",
+    "dev-server": "webpack serve",
     "test": "cross-env NODE_ENV=test jest --config=jest.config.json",
     "start": "node server/server.js",
     "heroku-postbuild": "npm run build:prod"
@@ -26,13 +26,13 @@
     "@fortawesome/react-fontawesome": "^0.1.10",
     "@types/jest": "^25.2.3",
     "babel-loader": "^8.1.0",
-    "css-loader": "^3.5.3",
+    "css-loader": "^6.11.0",
     "express": "^4.17.1",
     "firebase": "^10.9.0",
     "history": "^4.10.1",
-    "mini-css-extract-plugin": "^1.6.2",
+    "mini-css-extract-plugin": "^2.9.2",
     "moment": "^2.25.3",
-    "node-sass": "^9.0.0",
+    "sass": "^1.89.0",
     "normalize.css": "^8.0.1",
     "numeral": "^2.0.6",
     "react": "^16.13.1",
@@ -46,12 +46,12 @@
     "redux": "^4.0.5",
     "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.3.0",
-    "sass-loader": "^10.5.2",
+    "sass-loader": "^13.3.3",
     "style-loader": "^1.2.1",
     "uuid": "^8.0.0",
     "validator": "^13.0.0",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "webpack": "^5.99.9",
+    "webpack-cli": "^5.1.4"
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
@@ -61,6 +61,6 @@
     "enzyme-to-json": "^3.0.1",
     "jest": "^26.0.1",
     "react-test-renderer": "^16.13.1",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^5.2.2"
   }
 }
