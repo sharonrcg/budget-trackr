@@ -5,7 +5,7 @@ Manage your bills &amp; expenses
 
 ## View
 
-[https://budgettrackr.herokuapp.com/](https://budgettrackr.herokuapp.com/)
+[https://budgettrackr.sharongomez.com/](https://budgettrackr.sharongomez.com/)
 
 ## Features
 
