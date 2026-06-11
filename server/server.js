@@ -3,7 +3,6 @@ const express = require("express");
 const app = express();
 const publicPath = path.join(__dirname, "..", "public");
 
-
 app.use(express.static(publicPath));
 
 app.get("*", (req, res) => {
@@ -11,5 +10,5 @@ app.get("*", (req, res) => {
 });
 
 app.listen(process.env.PORT || 3000, () => {
-    console.log("expensify is running on localhost:3000");
+    console.log("budgettrackr is running on localhost:3000");
 });

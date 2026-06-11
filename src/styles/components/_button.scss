@@ -19,6 +19,8 @@
 
 .box-layout__box .button {
     box-shadow: 1.5px 1.5px 4px #727272;
+    display: block;
+    width: 100%;
 }
 
 .button__link {
@@ -34,7 +36,9 @@
 
 .button__secondary {
     background: $gray;
-    margin-left: 1rem;
+    margin-top: 1rem;
+    margin-left: .8rem;
+
     &:hover {
         background: darken($color: $gray, $amount: 10%);
     }

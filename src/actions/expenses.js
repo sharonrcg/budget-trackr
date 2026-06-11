@@ -1,7 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
 import database from "../firebase/firebase";
+import demoExpenses from "../fixtures/demoExpenses";
 
-// add expense 
+const saveDemoExpenses = (expenses) => {
+    localStorage.setItem('demoExpenses', JSON.stringify(expenses));
+};
+
+// add expense
 export const addExpense = (expense) => ({
     type: "ADD_EXPENSE",
     expense
@@ -18,6 +23,13 @@ export const startAddExpense = (expenseData = {}) => {
             createdAt = 0
         } = expenseData;
         const expense = { description, note, amount, createdAt };
+
+        if (uid === 'demo') {
+            const newExpense = { id: uuidv4(), ...expense };
+            dispatch(addExpense(newExpense));
+            saveDemoExpenses(getState().expenses);
+            return Promise.resolve();
+        }
 
         return database.ref(`users/${uid}/expenses`).push(expense).then((ref) => {
             dispatch(addExpense({
@@ -38,6 +50,13 @@ export const removeExpense = ({ id } = {}) => ({
 export const startRemoveExpense = ({ id } = {}) => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
+
+        if (uid === 'demo') {
+            dispatch(removeExpense({ id }));
+            saveDemoExpenses(getState().expenses);
+            return Promise.resolve();
+        }
+
         return database.ref(`users/${uid}/expenses/${id}`).remove().then(() => {
             dispatch(removeExpense({ id }));
         });
@@ -55,6 +74,13 @@ export const editExpense = (id, updates) => ({
 export const startEditExpense = (id, updates) => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
+
+        if (uid === 'demo') {
+            dispatch(editExpense(id, updates));
+            saveDemoExpenses(getState().expenses);
+            return Promise.resolve();
+        }
+
         return database.ref(`users/${uid}/expenses/${id}`).update(updates).then(() => {
             dispatch(editExpense(id, updates));
         });
@@ -67,10 +93,18 @@ export const setExpenses = (expenses) => ({
     expenses
 });
 
-//start set expenses
+// start set expenses
 export const startSetExpenses = () => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
+
+        if (uid === 'demo') {
+            const saved = localStorage.getItem('demoExpenses');
+            const expenses = saved ? JSON.parse(saved) : demoExpenses;
+            dispatch(setExpenses(expenses));
+            return Promise.resolve();
+        }
+
         return database.ref(`users/${uid}/expenses`).once("value").then((snapshot) => {
             const expenses = [];
             snapshot.forEach((childSnapshot) => {
